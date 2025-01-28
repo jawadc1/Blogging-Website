@@ -5,6 +5,10 @@ on:
     branches:
       - develop
 
+permissions:
+  id-token: write   # Allow the GITHUB_TOKEN to request ID tokens
+  contents: read    # Allow reading repository contents
+
 jobs:
   lint:
     runs-on: ubuntu-latest
