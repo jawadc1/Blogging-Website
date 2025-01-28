@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - develop
-      
-permissions:
-  id-token: write  # Add this line
-  contents: read
-  pages: write
 
 jobs:
   build:
