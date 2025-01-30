@@ -5,11 +5,6 @@ on:
     branches:
       - develop
 
-permissions:
-  id-token: write
-  contents: read
-  pages: write 
-  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,7 +19,7 @@ jobs:
         node-version: '18'
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
     - name: Build the website
       run: npx parcel build src/index.html
@@ -36,9 +31,18 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pages: write
 
     needs: build
-
+    
+    environment:
+      name: github-pages
+      
     steps:
     - name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v4
+      env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
